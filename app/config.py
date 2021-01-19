@@ -1,0 +1,8 @@
+class CONFIGURATION(object):
+    DEBUG = True
+    SECRET_KEY = 4546
+    SEND_FILE_MAX_AGE_DEFAULT = 0
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:root@localhost/shop'
+    UPLOAD_FOLDER = UPLOAD_FOLDER
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024

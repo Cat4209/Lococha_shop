@@ -38,9 +38,9 @@ class CONFIGURATION(object):
     MAIL_PORT = 587
     MAIL_USE_SSL = False
     MAIL_USE_TLS = True
-    MAIL_USERMAME = 'egorkaratunov2003@gmail.com'
-    MAIL_PASSWORD = 'egorka2003456'
-    MAIL_DEFAULT_SENDER = 'egorkaratunov2003@gmail.com'
+    MAIL_USERMAME = '...'
+    MAIL_PASSWORD = '...'
+    MAIL_DEFAULT_SENDER = '...'
     TESTING = False
     MAIL_MAX_EMAILS = None
     MAIL_ASCII_ATTACHMENTS = False
@@ -237,8 +237,8 @@ def sendMessage():
     msg.attach(MIMEText(message, 'plain'))
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
-    server.login("egorkaratunov2003@gmail.com", "egorka2003456")
-    server.sendmail("egorkaratunov2003@gmail.com", email, msg.as_string())
+    server.login("...", "...")
+    server.sendmail("...", email, msg.as_string())
     return redirect(url_for('main'))
 @app.route('/')
 def main():
@@ -435,8 +435,8 @@ def contact():
         msg.attach(MIMEText("<em>"+email+"</em>"+"<p></p><b>"+name+"</b><p></p><em>"+message+"</em>", 'html'))
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login("egorkaratunov2003@gmail.com", "egorka2003456")
-        server.sendmail("egorkaratunov2003@gmail.com", "egorkaratunov2003@gmail.com", msg.as_string())
+        server.login("..", "...")
+        server.sendmail("..", "..", msg.as_string())
         flash("Message has been successfuly sent!")
         return redirect(url_for("contact"))
     try:

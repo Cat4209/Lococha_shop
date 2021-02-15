@@ -1,0 +1,30 @@
+.title_404{
+    text-align: center;
+    margin-top: 80px;
+    font-size: 32px;
+    color: #2c2c2c;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    padding: 0px 12px;
+    @media(max-width: 720px){
+        font-size: calc(22px + 10*((100vw - 320px)/1410));
+    }
+}
+.gif{
+    background: url(../giphy.gif) no-repeat center center;
+    background-size: cover;
+    height: 300px;
+    width: 440px;
+    margin: 0 auto;
+    margin-top: 36px;
+    margin-bottom: 140px;
+    border-radius: 4px;
+    @media(max-width: 720px){
+        width: 300px;
+        height: 240px;
+    }
+    @media(max-width: 520px){
+        width: 260px;
+        height: 200px;
+    }
+}

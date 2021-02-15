@@ -1,0 +1,39 @@
+.support_title{
+    font-family: "Roboto", sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #81d2da;
+    text-align: center;
+    @media(max-width: 1730px){
+        font-size: calc(16px + 16*((100vw - 320px)/1410));
+    }
+    margin-top: 80px;
+}
+.donate{
+    margin-bottom: 140px;
+    margin-top: 52px;
+    width: 100%;
+}
+label[for="donate"],
+#donate{
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #2e2e2e;
+}
+label[for="donate"]{
+    span{
+        font-weight: 900;
+        font-size: 18px;
+    }
+}
+.gif{
+    padding: 12px;
+    height: 260px;
+    width: 260px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: url(../giphy.gif) no-repeat center center;
+    background-size: cover;
+    margin-top: 24px;
+}

@@ -1,0 +1,29 @@
+.form_container {
+  position: relative;
+  max-width: 1730px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.register_title {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 36px;
+  text-align: center;
+  margin-top: 12px;
+  color: #2c2c2c;
+  margin-bottom: 20px;
+}
+
+.form_register {
+  margin-bottom: 30px;
+}
+.form_register p label {
+  font-weight: 700;
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  color: #333;
+}
+.form_register p .btn {
+  margin-top: 14px;
+}

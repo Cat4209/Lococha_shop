@@ -1,0 +1,23 @@
+.container {
+  margin-top: 30px;
+  margin-bottom: 76px;
+}
+.container .login_title {
+  font-family: "Roboto";
+  font-weight: 900;
+  color: #2c2c2c;
+  font-size: 36px;
+  text-align: center;
+}
+@media (max-width: 1730px) {
+  .container .login_title {
+    font-size: calc(24px + 12 * ((100vw - 320px)/1410));
+  }
+}
+
+form[name=login_user_form] label {
+  font-family: "Roboto";
+  font-size: 16px;
+  font-weight: 900;
+  color: #161616;
+}

@@ -1,0 +1,143 @@
+{% extends 'wrapper.html' %}
+{% block header %}
+<link rel="stylesheet" href="../../static/wishlist/css/style.css">
+{% endblock %}
+{% block body %}
+<div class="second_section_border">
+    <div class="second_section">
+        <div class="second_section_container">
+            <div class="second_section_title"><span class="product">My wishlist</span></div>
+            <div class="second_section_url">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{url_for('main')}}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">My wishlist</li>
+                  </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="third_section_border"></div>
+<div class="third_section">
+   {% if wishes_count > 0 %}
+    <div class="third_section_container">
+        {% for wish in wishes %}
+        <form autocomplete="off" action="" method="post">
+        <div class="wish_container">
+           <div class="wish_container_left">
+                <div class="wished_img" style="background: url(../../static/uploads/{{wish.image}}) no-repeat center center; background-size: cover;"></div>
+               <div class="wished_name">
+                   <div><a href="{{url_for('item_details', slug=wish.slug)}}">{{wish.name}}</a></div>
+                   <div class="colors_row">
+                    {% if wish.color %}
+                        <div class="color color_1">
+                            <label>
+                                <input value="{{ wish.color }}" type="radio" name="color" required>
+                                <span class="after_input" style="background-color: {{ wish.color }};"><i class="fas fa-check"></i></span>
+                            </label>
+                        </div>
+                    {% endif %}
+                    {% if wish.color_1 %}
+                        <div class="color color_2">
+                            <label>
+                                <input value="{{ wish.color_1 }}" type="radio" name="color">
+                                <span class="after_input" style="background-color: {{ wish.color_1 }}"><i class="fas fa-check"></i></span>
+                            </label>
+                        </div>
+                    {% endif %}
+                    {% if wish.color_2 %}
+                        <div class="color color_3">
+                            <label>
+                                <input value="{{ wish.color_2 }}" type="radio" name="color">
+                                <span class="after_input" style="background-color: {{ wish.color_2 }}"><i class="fas fa-check"></i></span>
+                            </label>
+                        </div>
+                    {% endif %}
+                    {% if wish.color_3 %}
+                        <div class="color color_4">
+                            <label>
+                                <input value="{{ wish.color_3 }}" type="radio" name="color">
+                                <span class="after_input" style="background-color: {{ wish.color_3 }}"><i class="fas fa-check"></i></span>
+                            </label>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="sizes_row">
+                   {% if wish.os == 'on' %}
+                    <div class="form-group">
+                        <input type="radio" class="form-control size" value="os" autocomplete="off" name="size_{{wish.slug}}" id="os_{{wish.slug}}" required>
+                        <label for="os_{{wish.slug}}" class="control-label size-label">OS</label>
+                    </div>
+                    {% endif %}
+                    {% if wish.xs == 'on' %}
+                    <div class="form-group">
+                        <input type="radio" class="form-control size" value="xs" autocomplete="off" name="size_{{wish.slug}}" id="xs_{{wish.slug}}" required>
+                        <label for="xs_{{wish.slug}}" class="control-label size-label">XS</label>
+                    </div>
+                    {% endif %}
+                    {% if wish.s == 'on' %}
+                    <div class="form-group">
+                        <input type="radio" class="form-control size" value="s" autocomplete="off" name="size_{{wish.slug}}" id="s_{{wish.slug}}" required>
+                        <label for="s_{{wish.slug}}" class="control-label size-label">S</label>
+                    </div>
+                    {% endif %}
+                    {% if wish.m == 'on' %}
+                    <div class="form-group">
+                        <input type="radio" class="form-control size" value="m" autocomplete="off" name="size_{{wish.slug}}" id="m_{{wish.slug}}" required>
+                        <label for="m_{{wish.slug}}" class="control-label size-label">M</label>
+                    </div>
+                    {% endif %}
+                    {% if wish.l == 'on' %}
+                    <div class="form-group">
+                        <input type="radio" class="form-control size" value="l" autocomplete="off" name="size_{{wish.slug}}" id="l_{{wish.slug}}" required>
+                        <label for="l_{{wish.slug}}" class="control-label size-label">L</label>
+                    </div>
+                    {% endif %}
+                    {% if wish.xl == 'on' %}
+                    <div class="form-group">
+                        <input type="radio" class="form-control size" value="xl" autocomplete="off" name="size_{{wish.slug}}" id="xl_{{wish.slug}}" required>
+                        <label for="xl_{{wish.slug}}" class="control-label size-label">XL</label>
+                    </div>
+                    {% endif %}
+                    {% if wish.xxl == 'on' %}
+                    <div class="form-group">
+                        <input type="radio" class="form-control size" value="xxl" autocomplete="off" name="size_{{wish.slug}}" id="xxl_{{wish.slug}}" required>
+                        <label for="xxl_{{wish.slug}}" class="control-label size-label">XXL</label>
+                    </div>
+                    {% endif %}
+                </div>
+                </div>
+           </div>
+            <div class="wish_container_right">
+                <div class="wished_price"><span class="price_title">Price: </span><span class="price">${{wish.price}}</span></div>
+                <div class="wished_inStock">
+                {% if wish.isActive == 'on' %}
+                    <span class="inStock">Instock</span>
+                {% else %}
+                    <span class="isMiss">Is Missing</span>
+                {% endif %}
+                </div>
+                <div class="wished_add"><button type="submit" role="button" class="button_add">Add to cart</button></div>
+                <div class="wished_delete">
+                    <spna class="delete">
+                        <a href="{{ url_for('delete_wish', slug=wish.slug) }}"><i class="fas fa-times"></i></a>
+                    </spna>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="wish_slug" value="{{wish.slug}}">
+        <input type="hidden" name="wish_price" value="{{wish.price}}">
+        </form>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="no_items">
+        <span>There are no wishes, please add anything !</span>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+{% block footer %}
+<script src="../../static/wishlist/js/script.js"></script>
+{% endblock %}

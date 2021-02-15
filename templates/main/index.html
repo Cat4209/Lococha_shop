@@ -1,0 +1,378 @@
+{% extends 'wrapper.html' %}
+{% block header %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='main/css/style.css') }}" type="text/css">
+{% endblock %}
+{% block body %}
+<div class="second_section">
+    <div class="second_section_container">
+       {{ session['username'] }}
+        <div class="second_section_category"><a href="/product_list?tag=New">New</a></div>
+        <div class="second_section_category"><a href="{{url_for('product_list')}}">Clothes</a></div>
+        <div class="second_section_category"><a href="{{url_for('product_list')}}">Accessories</a></div>
+        <div class="second_section_category"><a href="{{url_for('product_list')}}">Shoes</a></div>
+        <div class="second_section_category"><a href="/product_list?tag=Hot">Trends</a></div>
+        <div class="second_section_category"><a href="/product_list?tag=Sale">Inspiration</a></div>
+    </div>
+</div>
+<div class="third_section">
+    <div class="swiper-container swiper-container-1">
+    <div class="parallax-bg" style="background-image:url(../../static/main/img/img_1.jpeg)" data-swiper-parallax="-23%"></div>
+    <div class="swiper-wrapper">
+    <div class="swiper-slide swiper-slide-1">
+        <div class="swiper_slide_container">
+            <div class="swiper_title" data-swiper-parallax="-200">New Colection 2020<p data-swiper-parallax="-100">Ready to wear</p></div>
+            <div class="swiper_article" data-swiper-parallax="-300">It is a long established fact that a reader will be distracted by the <p>readable content of a page when looking at its layout</p></div>
+        </div>
+    </div>
+    <div class="swiper-slide swiper-slide-2">
+        <div class="swiper_slide_container">
+            <div class="swiper_title" data-swiper-parallax="-200">New Colection 2019<p data-swiper-parallax="-100">Ready to wear</p></div>
+            <div class="swiper_article" data-swiper-parallax="-300">It is a long established fact that a reader will be distracted by the <p>readable content of a page when looking at its layout</p></div>
+        </div>
+    </div>
+    <div class="swiper-slide swiper-slide-3">
+        <div class="swiper_slide_container">
+            <div class="swiper_title" data-swiper-parallax="-200">New Colection 2018<p data-swiper-parallax="-100">Ready to wear</p></div>
+            <div class="swiper_article" data-swiper-parallax="-300">It is a long established fact that a reader will be distracted by the <p>readable content of a page when looking at its layout</p></div>
+        </div>
+    </div>
+    <div class="swiper-slide swiper-slide-4">
+        <div class="swiper_slide_container">
+            <div class="swiper_title" data-swiper-parallax="-200">New Colection 2017<p data-swiper-parallax="-100">Ready to wear</p></div>
+            <div class="swiper_article" data-swiper-parallax="-300">It is a long established fact that a reader will be distracted by the <p>readable content of a page when looking at its layout</p></div>
+        </div>
+    </div>
+    </div>
+    <div class="swiper_controllers">
+        <div class="swiper-button-prev swiper-button-prev-1"></div>
+        <div class="swiper-button-next swiper-button-next-1"></div>
+    </div>
+    <div class="swiper_paginations">
+        <div class="swiper_pagination_1 swiper_pagination">01</div>
+        <div class="swiper_pagination_2 swiper_pagination">02</div>
+        <div class="swiper_pagination_3 swiper_pagination">03</div>
+        <div class="swiper_pagination_4 swiper_pagination">04</div>
+    </div>
+  </div>
+</div>
+<div class="fourth_section">
+    <div class="fourth_section_container">
+        <div class="fourth_section_lside">
+            <div class="fourth_section_title mt-5">New Colection</div>
+            <div class="fourth_section_swiper_1">
+               <div class="swiper_paginations">
+                   <div class="swiper__pagination swiper__pagination_1">01</div>
+                   <div class="swiper__pagination swiper__pagination_2">02</div>
+                   <div class="swiper__pagination swiper__pagination_3">03</div>
+               </div>
+                <div class="swiper-container swiper-container-2">
+                    <div class="swiper-wrapper">
+                       {% for post in posts.limit(3) %}
+                        <div class="swiper-slide">
+                            <div class="swiper_img_container">
+                                <a href="{{url_for('item_details', slug=post.slug)}}">
+                                    <div class="swiper_slide_img" style="background: url(../../static/uploads/{{post.image}}) no-repeat center center; background-size: cover;"></div>
+                                </a>
+                            </div>
+                            <div class="swiper_2_article">
+                                <div class="swiper_2_title"><a href="{{url_for('item_details', slug=post.slug)}}">{{ post.name }}</a></div>
+                                <div class="swiper_2_like">
+                                {% if not current_user.is_authenticated %}
+                                    <a href="/login">
+                                        <div class="heart">
+                                                <i class="far fa-heart"style="color: #2e2e2e;"></i>
+                                        </div>
+                                    </a>
+                                    {% else %}
+                                    <a href="{{url_for('add_wish', slug=post.slug)}}">
+                                        <div class="heart">
+                                            {% if post.users.all()|length > 0 %}
+                                                {% for user in post.users.all() %}
+                                                {% if user.id|int == current_user.get_id()|int %}
+                                                <i class="fas fa-heart" style="color: red;"></i>
+                                                {% else %}
+                                                <i class="far fa-heart" style="color: #2e2e2e;"></i>
+                                                {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                  <i class="far fa-heart" style="color: #2e2e2e;"></i>
+                                              {% endif %}
+                                            </div>
+                                        </a>     
+                                {% endif %}
+                                </div>
+                            </div>
+                            <div class="swiper_2_price mt-1"><div class="new_price">${{ post.price }}</div></div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fourth_section_rside">
+            <div class="swiper-container swiper-container-3">
+                <div class="swiper-wrapper">
+                   {% for post in posts.limit(3) %}
+                    <div class="swiper-slide">
+                       <div class="swiper_img_container">
+                           <a href="{{url_for('item_details', slug=post.slug)}}">
+                                <div class="swiper_slide_img" style="background: url(../../static/uploads/{{post.image}}) no-repeat center center; background-size: cover;"></div>
+                           </a>
+                       </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="fivth_section">
+    <div class="fivth_section_container row">
+        <div class="fivth_section_lside col-6">
+            <div class="fivth_section_img"></div>
+        </div>
+        <div class="fivth_section_rside col-6">
+           <div class="fivth_section_rside_container">
+                <div class="fivth_section_posttitle">New Arrivals</div>
+                <div class="fivth_section_title">Romantic Rebels</div>
+                <div class="fivth_section_description">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</div>
+                <div class="fivth_section_viewshop"><a href="{{url_for('product_list')}}">View shop</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="six_section">
+    <div class="six_section_container">
+        <div class="six_section_title">Most Popular</div>
+        <div class="six_section_main_1 row">
+           {% for post in posts.limit(12) %}
+            <div class="six_section_card col-xl-2 col-lg-3">
+                <div class="six_section_card_header">
+                      <a href="{{url_for('item_details', slug=post.slug)}}">
+                       <div class="six_section_header_image" style="background: url(../../static/uploads/{{post.image}}) no-repeat center center; background-size: cover;"></div>
+                       </a>
+                    <div class="tags">
+                       {% for tag in post.tags %}
+                           {% if tag.title == "New" %}
+                                <div class="tag tag_new"><a href="/product_list?tag=New">NEW</a></div>
+                           {% endif %}
+                            {% if tag.title == "Sale" %}
+                               <div class="tag tag_sale"><a href="/product_list?tag=Sale">SALE</a></div>
+                           {% endif %}
+                            {% if tag.title == "Hot" %}
+                                <div class="tag tag_hot"><a href="/product_list?tag=Hot">HOT</a></div>
+                           {% endif %}
+                       {% endfor %}
+                    </div>
+                    <div class="view_buy">
+                        <div class="vb quick_buy"><a href="/buy/{{ post.id }}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-handbag" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 1a2 2 0 0 0-2 2v2h4V3a2 2 0 0 0-2-2zm3 4V3a3 3 0 1 0-6 0v2H3.361a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.356a2.5 2.5 0 0 0 2.472-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5H11zm-1 1v1.5a.5.5 0 0 0 1 0V6h1.639a.5.5 0 0 1 .494.426l1.028 6.851A1.5 1.5 0 0 1 12.678 15H3.322a1.5 1.5 0 0 1-1.483-1.723l1.028-6.851A.5.5 0 0 1 3.36 6H5v1.5a.5.5 0 0 0 1 0V6h4z"/></svg></a></div>
+                        <div class="vb quick_view"><a href="{{url_for('item_details', slug=post.slug)}}"><i class="fas fa-eye"></i></a></div>
+                        <div class="edit_post">
+                            <a href="#"><i class="far fa-edit"></i></a>
+                        </div>
+                    </div>
+                    <div class="colors">
+                        <div class="color color" style="background: {{ post.color }};"></div>
+                        {% if post.color_1 %}
+                        <div class="color color_1" style="background: {{ post.color_1 }};"></div>
+                        {% endif %}
+                        {% if post.color_2 %}
+                        <div class="color color_2" style="background: {{ post.color_2 }};"></div>
+                        {% endif %}
+                        {% if post.color_3 %}
+                        <div class="color color_3" style="background: {{ post.color_3 }};"></div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="six_section_card_footer">
+                    <div class="swiper_2_article">
+                                <div class="swiper_2_title"><a href="{{url_for('item_details', slug=post.slug)}}">{{ post.name }}</a></div>
+                                <div class="swiper_2_like">
+                                   {% if not current_user.is_authenticated %}
+                                    <a href="/login">
+                                        <div class="heart">
+                                                <i class="far fa-heart"style="color: #2e2e2e;"></i>
+                                        </div>
+                                    </a>
+                                    {% else %}
+                                    <a href="{{url_for('add_wish', slug=post.slug)}}">
+                                        <div class="heart">
+                                            {% if post.users.all()|length > 0 %}
+                                                {% for user in post.users.all() %}
+                                                {% if user.id|int == current_user.get_id()|int %}
+                                                <i class="fas fa-heart" style="color: red;"></i>
+                                                {% else %}
+                                                <i class="far fa-heart" style="color: #2e2e2e;"></i>
+                                                {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                  <i class="far fa-heart" style="color: #2e2e2e;"></i>
+                                              {% endif %}
+                                            </div>
+                                        </a>     
+                                {% endif %}
+                                </div>
+                            </div>
+                    <div class="swiper_2_price mt-1">
+                        <div class="old_price"></div>
+                        <div class="new_price">${{ post.price }}</div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+          <div class="six_section_main_2 row">
+           {% for post in posts.limit(4) %}
+            <div class="six_section_card six_section_card_2 col-6">
+                <div class="six_section_card_header" style="background: url(../../static/uploads/{{post.image}}) no-repeat center center; background-size: cover;">
+                    <div class="tags">
+                       {% for tag in post.tags %}
+                           {% if tag.title == "New" %}
+                                <div class="tag tag_new"><a href="/product_list?tag=New">NEW</a></div>
+                           {% endif %}
+                            {% if tag.title == "Sale" %}
+                               <div class="tag tag_sale"><a href="/product_list?tag=Sale">SALE</a></div>
+                           {% endif %}
+                            {% if tag.title == "Hot" %}
+                                <div class="tag tag_hot"><a href="/product_list?tag=Hot">HOT</a></div>
+                           {% endif %}
+                       {% endfor %}
+                    </div>
+                    <div class="view_buy">
+                        <div class="vb quick_buy"><a href="/buy/{{ post.id }}"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-handbag" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 1a2 2 0 0 0-2 2v2h4V3a2 2 0 0 0-2-2zm3 4V3a3 3 0 1 0-6 0v2H3.361a1.5 1.5 0 0 0-1.483 1.277L.85 13.13A2.5 2.5 0 0 0 3.322 16h9.356a2.5 2.5 0 0 0 2.472-2.87l-1.028-6.853A1.5 1.5 0 0 0 12.64 5H11zm-1 1v1.5a.5.5 0 0 0 1 0V6h1.639a.5.5 0 0 1 .494.426l1.028 6.851A1.5 1.5 0 0 1 12.678 15H3.322a1.5 1.5 0 0 1-1.483-1.723l1.028-6.851A.5.5 0 0 1 3.36 6H5v1.5a.5.5 0 0 0 1 0V6h4z"/></svg></a></div>
+                        <div class="vb quick_view"><a href="{{url_for('item_details', slug=post.slug)}}"><i class="fas fa-eye"></i></a></div>
+                        <div class="edit_post">
+                            <a href="#"><i class="far fa-edit"></i></a>
+                        </div>
+                    </div>
+                    <div class="colors">
+                        <div class="color color" style="background: {{ post.color }};"></div>
+                        {% if post.color_1 %}
+                        <div class="color color_1" style="background: {{ post.color_1 }};"></div>
+                        {% endif %}
+                        {% if post.color_2 %}
+                        <div class="color color_2" style="background: {{ post.color_2 }};"></div>
+                        {% endif %}
+                        {% if post.color_3 %}
+                        <div class="color color_3" style="background: {{ post.color_3 }};"></div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="six_section_card_footer">
+                    <div class="swiper_2_article">
+                                <div class="swiper_2_title"><a href="{{url_for('item_details', slug=post.slug)}}">{{ post.name }}</a></div>
+                                <div class="swiper_2_like">
+                                {% if not current_user.is_authenticated %}
+                                    <a href="/login">
+                                        <div class="heart">
+                                                <i class="far fa-heart"style="color: #2e2e2e;"></i>
+                                        </div>
+                                    </a>
+                                    {% else %}
+                                    <a href="{{url_for('add_wish', slug=post.slug)}}">
+                                        <div class="heart">
+                                            {% if post.users.all()|length > 0 %}
+                                                {% for user in post.users.all() %}
+                                                {% if user.id|int == current_user.get_id()|int %}
+                                                <i class="fas fa-heart" style="color: red;"></i>
+                                                {% else %}
+                                                <i class="far fa-heart" style="color: #2e2e2e;"></i>
+                                                {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                  <i class="far fa-heart" style="color: #2e2e2e;"></i>
+                                              {% endif %}
+                                            </div>
+                                        </a>     
+                                {% endif %}
+                                </div>
+                            </div>
+                    <div class="swiper_2_price mt-1">
+                        <div class="old_price"></div>
+                        <div class="new_price">${{ post.price }}</div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="seven_section">
+    <div class="seven_section_container">
+        <div class="seven_section_lside">
+            <div class="seven_section_lside_cotainer">
+                <div class="seven_section_posttitle">Hello summer</div>
+                <div class="seven_section_title">New swimwear</div>
+                <div class="seven_section_link seven_section_link_1">
+                    <div class="seven_section_link_through"></div>
+                    <div class="seven_section_link_text ml-2"><a href="">See all</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="seven_section_rside">
+            <div class="seven_section_rside_cotainer">
+                <div class="seven_section_posttitle">HOT DEAL TO DAY</div>
+                <div class="seven_section_title">Sale 30%bikini top</div>
+                <div class="seven_section_link seven_section_link_2">
+                    <div class="seven_section_link_through"></div>
+                    <div class="seven_section_link_text ml-2"><a href="">See all</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="eight_section">
+    <div class="eight_section_container">
+        <div class="eight_section_item eight_section_item_1">
+            <div class="eight_section_icon"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-truck" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg></div>
+            <div class="eight_section_description">
+                <div class="eight_section_title">
+                    Free Shipping
+                </div>
+                <div class="eight_section_postitle">
+                    Order over $120 
+                </div>
+            </div>
+        </div>
+        <div class="eight_section_item eight_section_item_2">
+            <div class="eight_section_icon"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-counterclockwise" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2v1z"/><path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466z"/></svg></div>
+            <div class="eight_section_description">
+                <div class="eight_section_title">
+                    30 Day Return
+                </div>
+                <div class="eight_section_postitle">
+                    If goods have problem
+                </div>
+            </div>
+        </div>
+        <div class="eight_section_item eight_section_item_3">
+            <div class="eight_section_icon"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-credit-card-2-front" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M14 3H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2z"/><path d="M2 5.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1z"/><path fill-rule="evenodd" d="M2 8.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"/></svg></div>
+            <div class="eight_section_description">
+                <div class="eight_section_title">
+                    Secure payment
+                </div>
+                <div class="eight_section_postitle">
+                    100% secure payment
+                </div>
+            </div>
+        </div>
+        <div class="eight_section_item eight_section_item_4">
+            <div class="eight_section_icon"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-right-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 1h12a1 1 0 0 1 1 1v11.586l-2-2A2 2 0 0 0 11.586 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/><path fill-rule="evenodd" d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/></svg></div>
+            <div class="eight_section_description">
+                <div class="eight_section_title">
+                    24h support
+                </div>
+                <div class="eight_section_postitle">
+                    Dedicated support
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+<script type="text/javascript" src="../../static/main/js/script.js"></script>
+{% endblock %}

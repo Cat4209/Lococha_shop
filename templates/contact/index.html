@@ -1,0 +1,79 @@
+{% extends 'wrapper.html' %}
+{% block header %}
+<link rel="stylesheet" type="text/css" href="../../static/contact/css/style.css">
+{% endblock %}
+{% block body %}
+<div class="border_section"></div>
+<div class="second_section">
+    <div id="map"></div>
+</div>
+<div class="messages_container offset-3 col-6 mb-4">
+    {% for message in get_flashed_messages() %}
+       <div class="alert alert-info">{{message}}</div>
+   {% endfor %}
+</div>
+<div class="third_section">
+    <div class="third_section_container">
+        <div class="third_section_left">
+            <div class="third_section_left_part">
+                <div class="third_section_left_posttitle">Addres</div>
+                <div class="third_section_left_info">
+                   PO Box 16122 Collins Victoria
+                    <p>Street 3000 Australia</p>
+                </div>
+            </div>
+            <div class="third_section_left_part">
+                <div class="third_section_left_posttitle">Phone</div>
+                <div class="third_section_left_info">
+                   Sale <a href="tel:+ 84 876 5445 234">(+84) 876-5445-234</a>
+                    <p>Support <a href="tel:+ 84 876 759 5245">(+84) 876-7595-245</a></p>
+                </div>
+            </div>
+               <div class="third_section_left_part">
+                <div class="third_section_left_posttitle">Email</div>
+                <div class="third_section_left_info">
+                   <a href="mailTo:Support@yourdomain.com">Support@yourdomain.com</a>
+                    <p><a href="mailTo:Sale@yourdomain.com">Sale@yourdomain.com</a></p>
+             </div>
+            </div>
+            <div class="third_section_left_part">
+                <div class="third_section_left_posttitle">Social</div>
+                <div class="third_section_left_info third_section_left_social">
+                   <span class="social"><a href=""><i class="fab fa-facebook-f"></i></a></span>
+                   <span class="social"><a href=""><i class="fab fa-instagram"></i></a></span>
+                   <span class="social"><a href=""><i class="fab fa-vk"></i></a></span>
+                </div>
+            </div>
+        </div>
+        <div class="third_section_right">
+            <div class="third_section_left_posttitle">Drop us a line</div>
+            <div class="third_section_left_info">
+                Is simply dummy text of the printing and typesetting industry. <p>Lorem Ipsum has been the</p>
+            </div>
+            <form action="" method="post" class="form mt-4">
+                <div class="row">
+                   <div class="form-group sendmail_label col-6">
+                        <label for="name" >Your Name</label>
+                        <input type="text" name="name" id="name" class="form-control" required>
+                   </div>
+                    <div class="form-group sendmail_label col-6">
+                        <label for="gmail" >Your Email</label>
+                        <input type="email_to" name="email_to" id="gmail" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group sendmail_label">
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" class="form-control" maxlength="5000" required></textarea>
+                </div>
+                <button class="btn" type="submit" role="button">Send</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+<script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeiX58sQS2Uw1GwCbhuFv8ryewmqNMo3g&callback=initMap">
+</script>
+<script src="../../static/contact/js/script.js"></script>
+{% endblock %}

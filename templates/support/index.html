@@ -1,0 +1,25 @@
+{% extends 'wrapper.html' %}
+{%  block header %}
+<link rel="stylesheet" href="../../static/support/css/style.css" type="text/css">
+{% endblock %}
+{% block body %}
+<div class="support_title">
+    If you want to support me like web developer (Full stack), you would donate money. <p> Thank You a lot! Na Doshik <3 </p>
+</div>
+<div class="gif">
+    
+</div>
+<div class="donate">
+    <div class="donate_containe offset-3 col-6">
+        <form autocomplete="off" action="" method="post">
+           <div class="form-group">
+                <label for="donate">Please enter the amount without <span>symbols ($)</span></label>
+                <input type="number" required id="donate" name="donate" min="1" class="form-control mt-2">
+           </div>
+           <button type="submit" role="button" class="btn btn-info">Donate</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'wrapper.html' %}
+{% block header %}
+<link rel="stylesheet" type="text/css" href="../../static/cart/css/style.css">
+{% endblock %}
+{% block body %}
+<div class="second_section_border">
+    <div class="second_section">
+        <div class="second_section_container">
+            <div class="second_section_title"><span class="product">Shopping cart</span></div>
+            <div class="second_section_url">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{url_for('main')}}">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Shopping cart</li>
+                  </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="third_section_border"></div>
+<div class="alert alert-success offset-2 col-8"></div>
+<div class="third_section">
+   {% if cart|length > 0 %}
+    <div class="third_section_container">
+        <div class="third_section_left">
+           {% for cart_item in cart %}
+            <div class="third_section_product" data-price="{{cart_item.post_price}}" data-count="{{cart_item.post_count}}">
+               <div style="display: flex; align-items: center;">
+                   <div class="product_img" style="background: url(../../static/uploads/{{cart_item.post_image}}) no-repeat center center; background-size: cover;"></div>
+                <div class="product_name_price">
+                    <div class="product_name"><a href="{{url_for('item_details', slug=cart_item.post_slug)}}">{{cart_item.post_name}}</a></div>
+                    <div class="product_price"><span class="price_title">Price: </span><span class="price_curency">$</span><span class="price">{{cart_item.post_price}}</span></div>
+                    <div class="product_color_size">
+                        <div class="product_color" style="background: {{cart_item.post_color}};"></div>
+                        <div class="product_size">{{cart_item.post_size}}</div>
+                    </div>
+                </div>
+               </div>
+                <div style="align-items: center; display: flex;">
+                    <div class="count"><input type="number" min="1" name="count" value="{{cart_item.post_count}}">
+                    </div>
+                    <div class="delete_product"><a href="/cart_delete/{{cart_item.id}}"><i class="fas fa-times"></i></a></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="third_section_right">
+            <div class="third_section_title">Discount codes</div>
+            <div class="third_section_posttitle">Enter your coupon code if you have one</div>
+            <div class="discount"><input type="text" name="discount" placeholder="xxxx"></div>
+            <div class="discount_check"><button class="discount_btn">Apply</button></div>
+            <div class="total mt-5">Grand total</div>
+            <div class="subtotal">
+                <div class="subtotal_text">Subtotal</div>
+                <div class="subtotal_amount"><span class="currency">$</span><span class="subtotal_price"></span></div>
+            </div>
+            <div class="tax mt-3">
+                <div class="tax_text">Tax</div>
+                <div class="tax_amount"><span class="currency">$</span><span class="tax_price"></span></div>
+            </div>
+            <div class="shiping mt-3">
+               <div class="shiping_text">Shiping</div>
+                <div class="shiping_amount"><span class="currency">$</span><span class="shiping_price"></span></div>
+            </div>
+            <div class="grand_total mt-4">
+                <div class="total">Grand total</div>
+                <div class="grand_amount"><span class="currency_grand">$</span><span class="grand_price"></span>
+                </div>
+            </div>
+            <form autocomplete="off" action="{{url_for('cart')}}" method="post">
+                <input type="hidden" name="total">
+                <input type="hidden" name="subtotal">
+                <input type="hidden" name="shipping" value="0.5">
+                <button class="check_out mt-3" type="submit" role="button">Check Out</button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+        <div class="no_items">There are no items! Add itmes to the shopping cart.</div>
+    {% endif %}
+</div>
+{% endblock %}
+{% block footer %}
+<script src="../../static/cart/js/script.js"></script>
+{% endblock %}

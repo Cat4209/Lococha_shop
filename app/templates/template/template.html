@@ -1,9 +1,0 @@
-{% extends 'wrapper.html' %}
-{% block body %}
-
-{% if filename %}
-    <img src="{{ url_for('send_file', filename=filename) }}" alt="">
-{% else %}
-    <strong>No Image for whatever reason</strong>
-{% endif %}
-{% endblock %}
